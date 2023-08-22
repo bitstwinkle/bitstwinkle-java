@@ -24,16 +24,26 @@ import java.util.Date;
 
 public final class TimeHelper {
 
-  public static boolean IsBefore(Date src, Date dest){
+  public static boolean IsBefore(Date src, Date dest) {
     int result = src.compareTo(dest);
     return result < 0;
   }
-  public static boolean IsAfter(Date src, Date dest){
+
+  public static boolean IsAfter(Date src, Date dest) {
     int result = src.compareTo(dest);
     return result > 0;
   }
-    public static Date OfISO(String isoStr) {
-      LocalDate localDate = LocalDate.parse(isoStr, DateTimeFormatter.ISO_DATE);
-      return java.sql.Date.valueOf(localDate);
+
+  public static Date OfISO(String isoStr) {
+    LocalDate localDate = LocalDate.parse(isoStr, DateTimeFormatter.ISO_DATE);
+    return java.sql.Date.valueOf(localDate);
+  }
+
+  public static Date OfUnix(String unixStr) {
+    if (unixStr == null || unixStr.isBlank()) {
+      return new Date(0);
     }
+    long unix = Long.parseLong(unixStr);
+    return new Date(unix);
+  }
 }

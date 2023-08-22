@@ -73,7 +73,7 @@ public final class Network {
     return gToken;
   }
 
-  public static void UpToken(TokenData src) {
-    gToken.from(src);
+  public static void UpToken(Token src) {
+    gToken.clone(src);
   }
 }

@@ -46,10 +46,12 @@ import tech.hotu.bitstwinkle.network.Response;
 import tech.hotu.bitstwinkle.network.security.Token;
 import tech.hotu.bitstwinkle.network.security.TokenData;
 import tech.hotu.bitstwinkle.tools.crypto.CryptoHelper;
+import tech.hotu.bitstwinkle.tools.sys.SysHelper;
 import tech.hotu.bitstwinkle.tools.unique.Unique;
 import tech.hotu.bitstwinkle.types.errors.Err;
 
 interface Http {
+
   String HEADER_PREFIX = "Twinkle-"; //Uniform prefix
   String HEADER_RUN_MODE = HEADER_PREFIX + "Run-Mode"; //Uniform prefix
   String HEADER_SECRET_PUB = HEADER_PREFIX + "Secret-Pub"; //Secret Pub
@@ -63,10 +65,13 @@ interface Http {
   String turnBySecretURL = "/security/access/secret";
   String turnByRefreshURL = "/security/access/refresh";
 }
+
 public class HttpClient implements IClient {
+
   private static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
 
   private OkHttpClient okHttpCli;
+
   public HttpClient() {
     this.okHttpCli = new Builder().
         connectTimeout(60, TimeUnit.SECONDS).
@@ -78,24 +83,29 @@ public class HttpClient implements IClient {
   public <D, R> Response<R> call(String api, D data, Class<R> targetType) {
     logger.info("[ api: {} ]", api);
     ObjectMapper objectMapper = new ObjectMapper();
-    try{
-      String jsonBody = objectMapper.writeValueAsString(data);
-
-      Request.Builder reqBuilder = new Request.Builder()
-          .url(Network.Options().getAccess() + api);
-      if(data!=null){
-        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        RequestBody reqBody = RequestBody.create(jsonBody, mediaType);
-        reqBuilder.post(reqBody);
+    try {
+      String jsonBody;
+      if (data != null) {
+        jsonBody = objectMapper.writeValueAsString(data);
+      } else {
+        jsonBody = "{\"timestamp\":" + new Date().getTime() + "}";
       }
+      MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+      RequestBody reqBody = RequestBody.create(jsonBody, mediaType);
+      Request.Builder reqBuilder = new Request.Builder()
+          .url(Network.Options().getAccess() + api)
+          .post(reqBody);
+
       Request httpReq = reqBuilder.build();
       okhttp3.Response httpResp = this.okHttpCli.newCall(httpReq).execute();
-      if(!httpResp.isSuccessful()){
+      if (!httpResp.isSuccessful()) {
+        String respBody = httpResp.body().string();
+        logger.info("[ api.resp.err: {} {} ] : {} {}", httpReq.method(), httpReq.url().url(),
+            respBody, httpResp.message());
         Err err;
         try {
-          err = objectMapper.readValue(httpResp.body().string(), Err.class);
-          logger.info("[ api.resp.err: {} ]", err.toString());
-        }catch (Exception respJsonDeE){
+          err = objectMapper.readValue(respBody, Err.class);
+        } catch (Exception respJsonDeE) {
           logger.error("objectMapper.readValue(httpResp.body().string()) err", respJsonDeE);
           return Response.Error(Err.System("analyze response data failed"));
         }
@@ -103,8 +113,10 @@ public class HttpClient implements IClient {
       }
       byte[] respData = httpResp.body().bytes();
       R resultData = objectMapper.readValue(respData, targetType);
+      logger.info("[ api.resp.ok: {} {} ] : {} >>{}<<", httpReq.method(), httpReq.url().url(),
+          new String(respData), resultData);
       return Response.Success(resultData);
-    }catch (IOException e){
+    } catch (IOException e) {
       logger.error("do http.call failed", e);
       return Response.Error(Err.System("analyze data failed"));
     }
@@ -112,7 +124,9 @@ public class HttpClient implements IClient {
 }
 
 class HttpInterceptor implements Interceptor {
+
   private static final Logger logger = LoggerFactory.getLogger(HttpInterceptor.class);
+
   @NotNull
   @Override
   public okhttp3.Response intercept(@NotNull Chain chain) throws IOException {
@@ -120,23 +134,32 @@ class HttpInterceptor implements Interceptor {
     String urlStr = req.url().url().toString();
     String signPub;
     String signKey;
-    if (urlStr.endsWith(Http.turnBySecretURL)){
+    if (urlStr.endsWith(Http.turnBySecretURL)) {
       signPub = Network.Options().getSecret().getPub();
       signKey = Network.Options().getSecret().getPri();
-    }else if (urlStr.endsWith(Http.turnByRefreshURL)){
+      if(SysHelper.RunMode().isRd()){
+        logger.info("turnBySecret. secret.pub= >>{}<<, secret.pri= >>{}<<", signPub, signKey );
+      }
+    } else if (urlStr.endsWith(Http.turnByRefreshURL)) {
       signPub = Network.Token().getRefreshTokenPub();
       signKey = Network.Token().getRefreshTokenPri();
-    }else {
+      if(SysHelper.RunMode().isRd()){
+        logger.info("turnByRefresh. secret.pub= >>{}<<, secret.pri= >>{}<<", signPub, signKey );
+      }
+    } else {
       Token token = Network.Token();
-      if(!token.isAvailable()){
-        if(token.isRefreshAvailable()){
+      if (!token.isAvailable()) {
+        if (token.isRefreshAvailable()) {
           doTurnByRefreshToken();
-        }else{
+        } else {
           doTurnBySecret();
         }
       }
       signPub = token.getTokenPub();
       signKey = token.getTokenPri();
+      if(SysHelper.RunMode().isRd()){
+        logger.info("turnByToken. secret.pub= >>{}<<, secret.pri= >>{}<<", signPub, signKey );
+      }
     }
 
     // handle Header
@@ -179,24 +202,22 @@ class HttpInterceptor implements Interceptor {
     return chain.proceed(reqBuilder.build());
   }
 
-  //todo
-  private void doTurnByRefreshToken() throws IOException{
+  private void doTurnByRefreshToken() throws IOException {
     Response<TokenData> resp = Network.Client().call(Http.turnByRefreshURL, null, TokenData.class);
-    if(resp.getErr()!=null){
+    if (resp.getErr() != null) {
       logger.error("turn by refresh failed: {}", resp.getErr().toString());
       throw new IOException("turn token by refresh failed");
     }
-    Network.UpToken(resp.getData());
+    Network.UpToken(Token.Of(resp.getData(), Network.Token().getRefreshTokenPri()));
   }
 
-  //todo
   private void doTurnBySecret() throws IOException {
     Response<TokenData> resp = Network.Client().call(Http.turnBySecretURL, null, TokenData.class);
-    if(resp.getErr()!=null){
+    if (resp.getErr() != null) {
       logger.error("turn by secret failed: {}", resp.getErr());
       throw new IOException("turn token by secret failed");
     }
-    Network.UpToken(resp.getData());
+    Network.UpToken(Token.Of(resp.getData(), Network.Options().getSecret().getPri()));
   }
 
   private String doSign(
@@ -204,25 +225,25 @@ class HttpInterceptor implements Interceptor {
       , Map<String, String> params
       , String body
       , String priKey
-      ) throws Exception {
+  ) throws Exception {
     StringBuilder buf = new StringBuilder();
-    if(signHeader!=null && !signHeader.isEmpty()){
-      for(Map.Entry<String, String> entry : signHeader.entrySet()) {
+    if (signHeader != null && !signHeader.isEmpty()) {
+      for (Map.Entry<String, String> entry : signHeader.entrySet()) {
         buf.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
       }
     }
-    if(params!=null && !params.isEmpty()){
+    if (params != null && !params.isEmpty()) {
       List<Entry<String, String>> list = new ArrayList<>(params.entrySet());
       Collections.sort(list, Entry.comparingByKey());
-      for(Map.Entry<String, String> entry: list){
+      for (Map.Entry<String, String> entry : list) {
         buf.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
       }
     }
-    if(body!=null && !body.isBlank()){
+    if (body != null && !body.isBlank()) {
       buf.append(Http.bodyInside).append("=").append(body);
     }
 
-    logger.info("buf to sign: buf={}; priKey={}", buf, priKey);
+    logger.info("buf to sign: buf=**{}** | priKey=**{}**", buf, priKey);
     return CryptoHelper.SHA256(buf.toString(), priKey);
   }
 }

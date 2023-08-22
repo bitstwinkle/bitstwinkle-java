@@ -19,6 +19,8 @@
 package tech.hotu.bitstwinkle.network.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TokenData {
     @JsonProperty("refresh_token_pub")
@@ -84,5 +86,14 @@ public class TokenData {
 
     public void setTokenPri(String tokenPri) {
       this.tokenPri = tokenPri;
+    }
+
+    public String toString() {
+      ObjectMapper objectMapper = new ObjectMapper();
+      try {
+        return objectMapper.writeValueAsString(this);
+      } catch (JsonProcessingException e) {
+        return "invalid TokenData";
+      }
     }
   }

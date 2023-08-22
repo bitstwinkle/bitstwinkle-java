@@ -19,9 +19,14 @@
 package tech.hotu.bitstwinkle.network.security;
 
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tech.hotu.bitstwinkle.tools.crypto.CryptoHelper;
+import tech.hotu.bitstwinkle.tools.sys.SysHelper;
 import tech.hotu.bitstwinkle.tools.times.TimeHelper;
 
 public class Token {
+  private static final Logger logger = LoggerFactory.getLogger(Token.class);
   private String refreshTokenPub;
   private Date refreshTokenExpire;
   private String refreshTokenPri;
@@ -38,13 +43,30 @@ public class Token {
     this.tokenPri = "";
   }
 
-  public void from(TokenData src) {
+  public static Token Of(TokenData src, String priKey) {
+    if(SysHelper.RunMode().isRd()){
+      logger.info("input TokenData={}, priKey={}", src, priKey);
+    }
+    Token ins = new Token();
+    ins.refreshTokenPub = src.getRefreshTokenPub();
+    ins.refreshTokenExpire = TimeHelper.OfUnix(src.getRefreshTokenExpire());
+    ins.refreshTokenPri = CryptoHelper.AESDecrypt(src.getRefreshTokenPri(), priKey);
+    ins.tokenPub = src.getTokenPub();
+    ins.tokenPri = CryptoHelper.AESDecrypt(src.getTokenPri(), priKey);
+    ins.tokenExpire = TimeHelper.OfUnix(src.getTokenExpire());
+    if(SysHelper.RunMode().isRd()){
+      logger.info("input TokenData={}, token={}, priKey={}", src, ins, priKey);
+    }
+    return ins;
+  }
+
+  public void clone(Token src) {
     this.refreshTokenPub = src.getRefreshTokenPub();
-    this.refreshTokenExpire = TimeHelper.OfISO(src.getRefreshTokenExpire());
+    this.refreshTokenExpire = src.getRefreshTokenExpire();
     this.refreshTokenPri = src.getRefreshTokenPri();
     this.tokenPub = src.getTokenPub();
+    this.tokenExpire = src.getTokenExpire();
     this.tokenPri = src.getTokenPri();
-    this.tokenExpire = TimeHelper.OfISO(src.getTokenExpire());
   }
 
   public boolean isAvailable() {
