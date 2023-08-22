@@ -1,0 +1,24 @@
+plugins {
+    id 'java-library'
+}
+
+group "tech.hotu.bitstwinkle.core"
+version "1.0.0"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.google.guava:guava:32.1.1-jre'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+}
+
+tasks.named('test') {
+}
