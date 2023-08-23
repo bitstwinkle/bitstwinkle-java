@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id 'maven-publish'
 }
 
 group = 'tech.hotu.bitstwinke.demo'
