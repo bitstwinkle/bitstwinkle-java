@@ -16,11 +16,27 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 
-public interface IClient {
+public class Unique {
+  private String addr;
+  private Lead lead;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public String getAddr() {
+    return addr;
+  }
+
+  public void setAddr(String addr) {
+    this.addr = addr;
+  }
+
+  public Lead getLead() {
+    return lead;
+  }
+
+  public void setLead(Lead lead) {
+    this.lead = lead;
+  }
 }

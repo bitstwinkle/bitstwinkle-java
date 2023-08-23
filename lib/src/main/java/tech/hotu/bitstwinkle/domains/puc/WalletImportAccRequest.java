@@ -16,11 +16,38 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public interface IClient {
+public class WalletImportAccRequest {
+  @JsonProperty("wallet_unique")
+  private Unique walletUnique;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  private String name;
+  private String coin;
+
+  public Unique getWalletUnique() {
+    return walletUnique;
+  }
+
+  public void setWalletUnique(Unique walletUnique) {
+    this.walletUnique = walletUnique;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getCoin() {
+    return coin;
+  }
+
+  public void setCoin(String coin) {
+    this.coin = coin;
+  }
 }

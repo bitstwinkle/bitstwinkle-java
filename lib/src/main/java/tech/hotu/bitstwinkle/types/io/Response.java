@@ -16,7 +16,7 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.types.io;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

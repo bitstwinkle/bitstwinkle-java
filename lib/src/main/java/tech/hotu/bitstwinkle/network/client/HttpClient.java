@@ -42,7 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.hotu.bitstwinkle.network.IClient;
 import tech.hotu.bitstwinkle.network.Network;
-import tech.hotu.bitstwinkle.network.Response;
+import tech.hotu.bitstwinkle.types.io.Response;
 import tech.hotu.bitstwinkle.network.security.Token;
 import tech.hotu.bitstwinkle.network.security.TokenData;
 import tech.hotu.bitstwinkle.tools.crypto.CryptoHelper;

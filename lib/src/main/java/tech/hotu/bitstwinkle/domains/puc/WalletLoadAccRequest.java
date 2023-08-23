@@ -16,11 +16,29 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 
-public interface IClient {
+public class WalletLoadAccRequest {
+  @JsonProperty("wallet_unique")
+  private Unique walletUnique;
+  private Map<String, Boolean> with;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public Unique getWalletUnique() {
+    return walletUnique;
+  }
+
+  public void setWalletUnique(Unique walletUnique) {
+    this.walletUnique = walletUnique;
+  }
+
+  public Map<String, Boolean> getWith() {
+    return with;
+  }
+
+  public void setWith(Map<String, Boolean> with) {
+    this.with = with;
+  }
 }

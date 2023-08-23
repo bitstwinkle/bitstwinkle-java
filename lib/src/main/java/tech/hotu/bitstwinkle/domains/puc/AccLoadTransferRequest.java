@@ -16,11 +16,30 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.hotu.bitstwinkle.types.load.Page;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 
-public interface IClient {
+public class AccLoadTransferRequest {
+  @JsonProperty("lead_array")
+  private Lead[] leadArray;
+  private Page page;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public Lead[] getLeadArray() {
+    return leadArray;
+  }
+
+  public void setLeadArray(Lead[] leadArray) {
+    this.leadArray = leadArray;
+  }
+
+  public Page getPage() {
+    return page;
+  }
+
+  public void setPage(Page page) {
+    this.page = page;
+  }
 }

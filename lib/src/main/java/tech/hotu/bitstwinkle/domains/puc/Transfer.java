@@ -16,11 +16,34 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+public class Transfer {
+  private String from;
+  private String to;
+  private long amount;
 
-public interface IClient {
+  public String getFrom() {
+    return from;
+  }
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public void setFrom(String from) {
+    this.from = from;
+  }
+
+  public String getTo() {
+    return to;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
+  public long getAmount() {
+    return amount;
+  }
+
+  public void setAmount(long amount) {
+    this.amount = amount;
+  }
 }

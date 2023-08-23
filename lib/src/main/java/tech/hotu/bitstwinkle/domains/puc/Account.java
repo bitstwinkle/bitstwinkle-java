@@ -16,11 +16,45 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 
-public interface IClient {
+public class Account {
+  private Lead lead;
+  private String addr;
+  private String coin;
+  private long balance;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public Lead getLead() {
+    return lead;
+  }
+
+  public void setLead(Lead lead) {
+    this.lead = lead;
+  }
+
+  public String getAddr() {
+    return addr;
+  }
+
+  public void setAddr(String addr) {
+    this.addr = addr;
+  }
+
+  public String getCoin() {
+    return coin;
+  }
+
+  public void setCoin(String coin) {
+    this.coin = coin;
+  }
+
+  public long getBalance() {
+    return balance;
+  }
+
+  public void setBalance(long balance) {
+    this.balance = balance;
+  }
 }

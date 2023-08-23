@@ -16,11 +16,25 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.types.load;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+public class Pagination<T> {
+  private Paging paging;
+  private T[] items;
 
-public interface IClient {
+  public Paging getPaging() {
+    return paging;
+  }
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public void setPaging(Paging paging) {
+    this.paging = paging;
+  }
+
+  public T[] getItems() {
+    return items;
+  }
+
+  public void setItems(T[] items) {
+    this.items = items;
+  }
 }

@@ -16,11 +16,24 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.types.io;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import tech.hotu.bitstwinkle.types.errors.Err;
+import tech.hotu.bitstwinkle.types.load.Paging;
 
-public interface IClient {
+public class PagePack<T> extends Pack<T>{
+  private Paging paging;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public PagePack(T data, Paging paging, Err err) {
+    super(data, err);
+    this.paging = paging;
+  }
+
+  public Paging getPaging() {
+    return paging;
+  }
+
+  public void setPaging(Paging paging) {
+    this.paging = paging;
+  }
 }

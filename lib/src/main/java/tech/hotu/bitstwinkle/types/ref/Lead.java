@@ -22,6 +22,16 @@ public class Lead {
   private Collar owner;
   private String code;
 
+  public Lead putOwner(Collar owner){
+    this.owner = owner;
+    return this;
+  }
+
+  public Lead putCode(String code) {
+    this.code = code;
+    return this;
+  }
+
   public Collar getOwner() {
     return owner;
   }

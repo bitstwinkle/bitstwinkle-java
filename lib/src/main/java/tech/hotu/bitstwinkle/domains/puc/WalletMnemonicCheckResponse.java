@@ -16,11 +16,16 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+public class WalletMnemonicCheckResponse {
+  private boolean correct;
 
-public interface IClient {
+  public boolean isCorrect() {
+    return correct;
+  }
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public void setCorrect(boolean correct) {
+    this.correct = correct;
+  }
 }

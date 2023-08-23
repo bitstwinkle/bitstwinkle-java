@@ -16,11 +16,18 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 
-public interface IClient {
+public class WalletCreateConfirmRequest {
+  private Lead lead;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public Lead getLead() {
+    return lead;
+  }
+
+  public void setLead(Lead lead) {
+    this.lead = lead;
+  }
 }

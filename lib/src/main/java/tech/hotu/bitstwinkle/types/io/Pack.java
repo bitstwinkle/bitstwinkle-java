@@ -16,34 +16,52 @@
  *
  */
 
-package tech.hotu.bitstwinkle.types.ref;
+package tech.hotu.bitstwinkle.types.io;
 
-public class Collar {
-  private String code;
-  private String id;
+import tech.hotu.bitstwinkle.types.errors.Err;
 
-  public Collar putCode(String code){
-    this.code = code;
-    return this;
-  }
-  public Collar putId(String id){
-    this.id = id;
-    return this;
-  }
+public class Pack<T> {
+  private T data;
+  private Err err;
 
-  public String getCode() {
-    return code;
+  public Pack(){}
+
+  public Pack(T data, Err err) {
+    this.data = data;
+    this.err = err;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public Pack(Response<T> resp) {
+    this(resp.getData(), resp.getErr());
   }
 
-  public String getId() {
-    return id;
+  public boolean isSuccess() {
+    return this.err==null;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void success(T data) {
+    this.data = data;
+    this.err = null;
+  }
+
+  public void error(Err err) {
+    this.data = null;
+    this.err = err;
+  }
+
+  public T getData() {
+    return data;
+  }
+
+  public void setData(T data) {
+    this.data = data;
+  }
+
+  public Err getErr() {
+    return err;
+  }
+
+  public void setErr(Err err) {
+    this.err = err;
   }
 }

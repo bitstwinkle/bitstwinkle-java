@@ -16,11 +16,29 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.types.load;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public interface IClient {
+public class Page {
+  @JsonProperty("page_size")
+  private int size;
+  @JsonProperty("page_no")
+  private int current;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public int getSize() {
+    return size;
+  }
+
+  public void setSize(int size) {
+    this.size = size;
+  }
+
+  public int getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(int current) {
+    this.current = current;
+  }
 }

@@ -16,11 +16,27 @@
  *
  */
 
-package tech.hotu.bitstwinkle.network;
+package tech.hotu.bitstwinkle.domains.puc;
 
-import tech.hotu.bitstwinkle.types.io.Response;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 
-public interface IClient {
+public class WalletMnemonicCheckRequest {
+  private Lead lead;
+  private String mnemonic;
 
-  <D, R> Response<R> call(String api, D data, Class<R> targetType);
+  public Lead getLead() {
+    return lead;
+  }
+
+  public void setLead(Lead lead) {
+    this.lead = lead;
+  }
+
+  public String getMnemonic() {
+    return mnemonic;
+  }
+
+  public void setMnemonic(String mnemonic) {
+    this.mnemonic = mnemonic;
+  }
 }
