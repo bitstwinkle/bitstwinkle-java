@@ -40,7 +40,7 @@ public final class TimeHelper {
   }
 
   public static Date OfUnix(String unixStr) {
-    if (unixStr == null || unixStr.isBlank()) {
+    if (unixStr == null || unixStr.isEmpty()) {
       return new Date(0);
     }
     long unix = Long.parseLong(unixStr);

@@ -70,10 +70,10 @@ public class Token {
   }
 
   public boolean isAvailable() {
-    if(this.tokenPub==null || this.tokenPub.isBlank()) {
+    if(this.tokenPub==null || this.tokenPub.isEmpty()) {
       return false;
     }
-    if(this.tokenPri==null || this.tokenPri.isBlank()) {
+    if(this.tokenPri==null || this.tokenPri.isEmpty()) {
       return false;
     }
     if(TimeHelper.IsBefore(this.tokenExpire, new Date())) {
@@ -83,10 +83,10 @@ public class Token {
   }
 
   public boolean isRefreshAvailable() {
-    if(this.refreshTokenPub==null || this.refreshTokenPub.isBlank()) {
+    if(this.refreshTokenPub==null || this.refreshTokenPub.isEmpty()) {
       return false;
     }
-    if(this.refreshTokenPri==null || this.refreshTokenPri.isBlank()) {
+    if(this.refreshTokenPri==null || this.refreshTokenPri.isEmpty()) {
       return false;
     }
     if(TimeHelper.IsBefore(this.refreshTokenExpire, new Date())) {

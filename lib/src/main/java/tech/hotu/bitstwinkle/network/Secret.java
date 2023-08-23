@@ -25,10 +25,10 @@ public class Secret {
   private String pri;
 
   public Err verify() {
-    if(this.pub==null || this.pub.isBlank()){
+    if(this.pub==null || this.pub.isEmpty()){
       return Err.Coding("require pub");
     }
-    if(this.pri==null || this.pri.isBlank()){
+    if(this.pri==null || this.pri.isEmpty()){
       return Err.Coding("require pri");
     }
     return null;

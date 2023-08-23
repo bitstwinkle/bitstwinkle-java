@@ -239,7 +239,7 @@ class HttpInterceptor implements Interceptor {
         buf.append(entry.getKey()).append("=").append(entry.getValue()).append(";");
       }
     }
-    if (body != null && !body.isBlank()) {
+    if (body != null && !body.isEmpty()) {
       buf.append(Http.bodyInside).append("=").append(body);
     }
 

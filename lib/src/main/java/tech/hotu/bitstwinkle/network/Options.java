@@ -28,7 +28,7 @@ public class Options {
   private Secret secret;
 
   public Err verify() {
-    if (this.access == null || this.access.isBlank()) {
+    if (this.access == null || this.access.isEmpty()) {
       return Err.Coding("require access");
     }
     if (this.scope == null) {

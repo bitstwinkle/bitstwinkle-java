@@ -62,7 +62,7 @@ public final class CryptoHelper {
     if(secretKey==null || plainText==null){
       return "";
     }
-    if( secretKey.isBlank() || plainText.isBlank()){
+    if( secretKey.isEmpty() || plainText.isEmpty()){
       return "";
     }
     if (secretKey.startsWith("0x")) {
@@ -97,7 +97,7 @@ public final class CryptoHelper {
     if(encryptedText==null || secretKey==null ){
       return "";
     }
-    if(secretKey.isBlank() || encryptedText.isBlank()){
+    if(secretKey.isEmpty() || encryptedText.isEmpty()){
       return "";
     }
     if (secretKey.startsWith("0x")) {

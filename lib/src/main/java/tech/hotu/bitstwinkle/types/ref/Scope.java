@@ -26,13 +26,13 @@ public class Scope {
   private String code;
 
   public Err verify() {
-    if(this.vn==null || this.vn.isBlank()){
+    if(this.vn==null || this.vn.isEmpty()){
       return Err.Coding("require vn");
     }
-    if(this.jd==null || this.jd.isBlank()){
+    if(this.jd==null || this.jd.isEmpty()){
       return Err.Coding("require jd");
     }
-    if(this.code==null || this.code.isBlank()){
+    if(this.code==null || this.code.isEmpty()){
       return Err.Coding("require code");
     }
     return null;
