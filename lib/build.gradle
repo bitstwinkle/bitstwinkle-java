@@ -1,12 +1,5 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
-}
-
-publishing {
-    repositories {
-        mavenLocal()
-    }
 }
 
 group 'com.github.bitstwinkle'
