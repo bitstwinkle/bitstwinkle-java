@@ -6,6 +6,47 @@ group 'com.github.bitstwinkle'
 archivesBaseName = 'bitstwinkle-java'
 version '1.0.0'
 
+apply plugin: "java"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// 设置编译使用utf-8编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier 'sources'
+}
+
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "$project.group"
+            artifactId = "$artifactId"
+            version = "$project.version"
+
+            from components.java
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+//        maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

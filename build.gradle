@@ -1,43 +1,43 @@
 allprojects {
-    apply plugin: "java"
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-    // 设置编译使用utf-8编码
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-    }
-    tasks.withType(Test) {
-        systemProperty "file.encoding", "UTF-8"
-    }
-
-    task sourcesJar(type: Jar) {
-        from sourceSets.main.allJava
-        archiveClassifier.set('sources')
-    }
-
-    apply plugin: "maven-publish"
-
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId = "$project.group"
-                artifactId = "$artifactId"
-                version = "$project.version"
-
-                from components.java
-                artifact sourcesJar {
-                    archiveClassifier.set('sources')
-                }
-            }
-        }
-    }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-//        maven { url 'https://jitpack.io' }
-    }
+//    apply plugin: "java"
+//
+//    sourceCompatibility = 1.8
+//    targetCompatibility = 1.8
+//
+//    // 设置编译使用utf-8编码
+//    tasks.withType(JavaCompile) {
+//        options.encoding = "UTF-8"
+//    }
+//    tasks.withType(Test) {
+//        systemProperty "file.encoding", "UTF-8"
+//    }
+//
+//    task sourcesJar(type: Jar) {
+//        from sourceSets.main.allJava
+//        classifier 'sources'
+//    }
+//
+//    apply plugin: "maven-publish"
+//
+//    publishing {
+//        publications {
+//            maven(MavenPublication) {
+//                groupId = "$project.group"
+//                artifactId = "$artifactId"
+//                version = "$project.version"
+//
+//                from components.java
+//                artifact sourcesJar {
+//                    classifier 'sources'
+//                }
+//            }
+//        }
+//    }
+//
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+////        maven { url 'https://jitpack.io' }
+//    }
 
 }
