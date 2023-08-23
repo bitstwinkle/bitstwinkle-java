@@ -3,6 +3,11 @@ plugins {
     id 'maven-publish'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_19
+    targetCompatibility = JavaVersion.VERSION_19
+}
+
 group "com.github.bitstwinkle"
 version "1.0.0"
 
