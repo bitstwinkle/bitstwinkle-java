@@ -19,9 +19,19 @@
 package tech.hotu.bitstwinkle.domains.puc;
 
 import tech.hotu.bitstwinkle.types.ref.Lead;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class WalletCreateConfirmRequest {
+  private Scope scope;
   private Lead lead;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Lead getLead() {
     return lead;

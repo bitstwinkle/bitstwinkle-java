@@ -18,16 +18,16 @@
 
 package tech.hotu.bitstwinkle.domains.puc;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.hotu.bitstwinkle.types.ref.Collar;
+import tech.hotu.bitstwinkle.types.ref.Lead;
 import tech.hotu.bitstwinkle.types.ref.Scope;
 
-public class WalletAddAccRequest {
+public class AirdropRequest {
   private Scope scope;
-  @JsonProperty("wallet_unique")
-  private Unique walletUnique;
-
-  private String name;
-  private String coin;
+  private Lead lead;
+  private long amount;
+  private Collar issue;
+  private String memo;
 
   public Scope getScope() {
     return scope;
@@ -37,27 +37,35 @@ public class WalletAddAccRequest {
     this.scope = scope;
   }
 
-  public Unique getWalletUnique() {
-    return walletUnique;
+  public Lead getLead() {
+    return lead;
   }
 
-  public void setWalletUnique(Unique walletUnique) {
-    this.walletUnique = walletUnique;
+  public void setLead(Lead lead) {
+    this.lead = lead;
   }
 
-  public String getName() {
-    return name;
+  public long getAmount() {
+    return amount;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setAmount(long amount) {
+    this.amount = amount;
   }
 
-  public String getCoin() {
-    return coin;
+  public Collar getIssue() {
+    return issue;
   }
 
-  public void setCoin(String coin) {
-    this.coin = coin;
+  public void setIssue(Collar issue) {
+    this.issue = issue;
+  }
+
+  public String getMemo() {
+    return memo;
+  }
+
+  public void setMemo(String memo) {
+    this.memo = memo;
   }
 }

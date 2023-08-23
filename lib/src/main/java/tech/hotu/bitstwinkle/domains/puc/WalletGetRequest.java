@@ -20,11 +20,21 @@ package tech.hotu.bitstwinkle.domains.puc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class WalletGetRequest {
+  private Scope scope;
   @JsonProperty("wallet_unique")
   private Unique walletUnique;
   private Map<String, Boolean> with;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Unique getWalletUnique() {
     return walletUnique;

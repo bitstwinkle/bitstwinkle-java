@@ -18,8 +18,19 @@
 
 package tech.hotu.bitstwinkle.domains.puc;
 
+import tech.hotu.bitstwinkle.types.ref.Scope;
+
 public class WalletMnemonicCheckResponse {
+  private Scope scope;
   private boolean correct;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public boolean isCorrect() {
     return correct;

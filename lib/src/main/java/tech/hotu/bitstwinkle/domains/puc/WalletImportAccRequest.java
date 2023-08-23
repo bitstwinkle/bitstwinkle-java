@@ -19,13 +19,23 @@
 package tech.hotu.bitstwinkle.domains.puc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class WalletImportAccRequest {
+  private Scope scope;
   @JsonProperty("wallet_unique")
   private Unique walletUnique;
 
   private String name;
   private String coin;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Unique getWalletUnique() {
     return walletUnique;

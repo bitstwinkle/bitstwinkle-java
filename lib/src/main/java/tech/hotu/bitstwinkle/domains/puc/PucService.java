@@ -43,4 +43,5 @@ public interface PucService {
 
   PagePack<Transfer[]> accLoadTransfer(AccLoadTransferRequest req);
 
+  Pack<String> airdrop(AirdropRequest req);
 }

@@ -19,10 +19,20 @@
 package tech.hotu.bitstwinkle.domains.puc;
 
 import tech.hotu.bitstwinkle.types.ref.Lead;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class WalletMnemonicCheckRequest {
+  private Scope scope;
   private Lead lead;
   private String mnemonic;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Lead getLead() {
     return lead;

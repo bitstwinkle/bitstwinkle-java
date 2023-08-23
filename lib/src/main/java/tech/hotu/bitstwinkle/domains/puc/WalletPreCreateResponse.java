@@ -19,8 +19,10 @@
 package tech.hotu.bitstwinkle.domains.puc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class WalletPreCreateResponse {
+  private Scope scope;
   private Unique unique;
 
   @JsonProperty("public_key")
@@ -30,6 +32,14 @@ public class WalletPreCreateResponse {
 
   @JsonProperty("private_key")
   private String privateKey;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Unique getUnique() {
     return unique;

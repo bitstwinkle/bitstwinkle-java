@@ -21,11 +21,21 @@ package tech.hotu.bitstwinkle.domains.puc;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import tech.hotu.bitstwinkle.types.load.Page;
 import tech.hotu.bitstwinkle.types.ref.Lead;
+import tech.hotu.bitstwinkle.types.ref.Scope;
 
 public class AccLoadTransferRequest {
+  private Scope scope;
   @JsonProperty("lead_array")
   private Lead[] leadArray;
   private Page page;
+
+  public Scope getScope() {
+    return scope;
+  }
+
+  public void setScope(Scope scope) {
+    this.scope = scope;
+  }
 
   public Lead[] getLeadArray() {
     return leadArray;

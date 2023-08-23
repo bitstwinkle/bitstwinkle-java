@@ -20,6 +20,7 @@ package tech.hotu.bitstwinkle.domains.puc.impl;
 
 import tech.hotu.bitstwinkle.domains.puc.AccLoadTransferRequest;
 import tech.hotu.bitstwinkle.domains.puc.Account;
+import tech.hotu.bitstwinkle.domains.puc.AirdropRequest;
 import tech.hotu.bitstwinkle.domains.puc.PucService;
 import tech.hotu.bitstwinkle.domains.puc.Transfer;
 import tech.hotu.bitstwinkle.domains.puc.Wallet;
@@ -45,6 +46,7 @@ public class HttpPucService implements PucService {
   public static String WALLET_GET = "/puc/wallet/g";
   public static String WALLET_LOAD_ACCOUNT = "/puc/acc/trans/q";
   public static String ACC_LOAD_TRANSFER = "/puc/acc/trans/q";
+  public static String AIRDROP = "/puc/acc/airdrop";
 
   @Override
   public Pack<WalletPreCreateResponse> walletPreCreate(WalletPreCreateRequest req) {
@@ -95,5 +97,11 @@ public class HttpPucService implements PucService {
       return new PagePack<>(null, null, resp.getErr());
     }
     return new PagePack<>((Transfer[])resp.getData().getItems(), resp.getData().getPaging(), null);
+  }
+
+  @Override
+  public Pack<String> airdrop(AirdropRequest req) {
+    Response<String> resp = Network.Client().call(AIRDROP, req, String.class);
+    return new Pack<>(resp);
   }
 }
