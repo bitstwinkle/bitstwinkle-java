@@ -50,6 +50,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<WalletPreCreateResponse> walletPreCreate(WalletPreCreateRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<WalletPreCreateResponse> resp = Network.Client().call(WALLET_PRE_CREATE, req,
         WalletPreCreateResponse.class);
     return new Pack<>(resp);
@@ -57,6 +60,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<WalletMnemonicCheckResponse> walletMnemonicCheck(WalletMnemonicCheckRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<WalletMnemonicCheckResponse> resp = Network.Client().call(WALLET_MNEMONIC_CHECK, req,
         WalletMnemonicCheckResponse.class);
     return new Pack<>(resp);
@@ -64,6 +70,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<Wallet> walletCreateConfirm(WalletCreateConfirmRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<Wallet> resp = Network.Client().call(WALLET_CREATE_CONFIRM, req,
         Wallet.class);
     return new Pack<>(resp);
@@ -71,6 +80,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<Account> walletAddAccount(WalletAddAccRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<Account> resp = Network.Client().call(WALLET_ADD_ACCOUNT, req,
         Account.class);
     return new Pack<>(resp);
@@ -78,6 +90,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<Wallet> walletGet(WalletGetRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<Wallet> resp = Network.Client().call(WALLET_GET, req,
         Wallet.class);
     return new Pack<>(resp);
@@ -85,6 +100,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<Account[]> walletLoadAccount(WalletLoadAccRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<Account[]> resp = Network.Client().call(WALLET_LOAD_ACCOUNT, req,
         Account[].class);
     return new Pack<>(resp);
@@ -92,6 +110,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public PagePack<Transfer[]> accLoadTransfer(AccLoadTransferRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<Pagination> resp = Network.Client().call(ACC_LOAD_TRANSFER, req, Pagination.class);
     if(resp.getErr()!=null){
       return new PagePack<>(null, null, resp.getErr());
@@ -101,6 +122,9 @@ public class HttpPucService implements PucService {
 
   @Override
   public Pack<String> airdrop(AirdropRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
     Response<String> resp = Network.Client().call(AIRDROP, req, String.class);
     return new Pack<>(resp);
   }
