@@ -28,10 +28,10 @@ public class Account {
   private long balance;
 
   @JsonProperty("private_key")
-  private boolean privateKey;
+  private String privateKey;
   @JsonProperty("public_key")
-  private boolean publicKey;
-  private boolean mnemonic;
+  private String publicKey;
+  private String mnemonic;
 
   public Lead getLead() {
     return lead;
@@ -65,27 +65,27 @@ public class Account {
     this.balance = balance;
   }
 
-  public boolean isPrivateKey() {
+  public String getPrivateKey() {
     return privateKey;
   }
 
-  public void setPrivateKey(boolean privateKey) {
+  public void setPrivateKey(String privateKey) {
     this.privateKey = privateKey;
   }
 
-  public boolean isPublicKey() {
+  public String getPublicKey() {
     return publicKey;
   }
 
-  public void setPublicKey(boolean publicKey) {
+  public void setPublicKey(String publicKey) {
     this.publicKey = publicKey;
   }
 
-  public boolean isMnemonic() {
+  public String getMnemonic() {
     return mnemonic;
   }
 
-  public void setMnemonic(boolean mnemonic) {
+  public void setMnemonic(String mnemonic) {
     this.mnemonic = mnemonic;
   }
 }
