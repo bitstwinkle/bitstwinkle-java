@@ -20,6 +20,7 @@ package tech.hotu.bitstwinkle.domains.puc.impl;
 
 import tech.hotu.bitstwinkle.domains.puc.AccLoadTransferRequest;
 import tech.hotu.bitstwinkle.domains.puc.Account;
+import tech.hotu.bitstwinkle.domains.puc.AccountGetRequest;
 import tech.hotu.bitstwinkle.domains.puc.AirdropRequest;
 import tech.hotu.bitstwinkle.domains.puc.PucService;
 import tech.hotu.bitstwinkle.domains.puc.Transfer;
@@ -46,6 +47,7 @@ public class HttpPucService implements PucService {
   public static String WALLET_GET = "/puc/wallet/g";
   public static String WALLET_LOAD_ACCOUNT = "/puc/acc/trans/q";
   public static String ACC_LOAD_TRANSFER = "/puc/acc/trans/q";
+  public static String ACC_GET = "/puc/acc/g";
   public static String AIRDROP = "/puc/acc/airdrop";
 
   @Override
@@ -126,6 +128,15 @@ public class HttpPucService implements PucService {
       req.setScope(Network.Options().getScope());
     }
     Response<String> resp = Network.Client().call(AIRDROP, req, String.class);
+    return new Pack<>(resp);
+  }
+
+  @Override
+  public Pack<Account> AccountGetAccount(AccountGetRequest req) {
+    if(req.getScope()==null){
+      req.setScope(Network.Options().getScope());
+    }
+    Response<Account> resp = Network.Client().call(ACC_GET, req, Account.class);
     return new Pack<>(resp);
   }
 }

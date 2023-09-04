@@ -36,7 +36,6 @@ public interface PucService {
 
   Pack<Account> walletAddAccount(WalletAddAccRequest req);
 
-
   Pack<Wallet> walletGet(WalletGetRequest req);
 
   Pack<Account[]> walletLoadAccount(WalletLoadAccRequest req);
@@ -44,4 +43,6 @@ public interface PucService {
   PagePack<Transfer[]> accLoadTransfer(AccLoadTransferRequest req);
 
   Pack<String> airdrop(AirdropRequest req);
+
+  Pack<Account> AccountGetAccount(AccountGetRequest req);
 }

@@ -18,6 +18,7 @@
 
 package tech.hotu.bitstwinkle.domains.puc;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import tech.hotu.bitstwinkle.types.ref.Lead;
 
 public class Account {
@@ -25,6 +26,12 @@ public class Account {
   private String addr;
   private String coin;
   private long balance;
+
+  @JsonProperty("private_key")
+  private boolean privateKey;
+  @JsonProperty("public_key")
+  private boolean publicKey;
+  private boolean mnemonic;
 
   public Lead getLead() {
     return lead;
@@ -56,5 +63,29 @@ public class Account {
 
   public void setBalance(long balance) {
     this.balance = balance;
+  }
+
+  public boolean isPrivateKey() {
+    return privateKey;
+  }
+
+  public void setPrivateKey(boolean privateKey) {
+    this.privateKey = privateKey;
+  }
+
+  public boolean isPublicKey() {
+    return publicKey;
+  }
+
+  public void setPublicKey(boolean publicKey) {
+    this.publicKey = publicKey;
+  }
+
+  public boolean isMnemonic() {
+    return mnemonic;
+  }
+
+  public void setMnemonic(boolean mnemonic) {
+    this.mnemonic = mnemonic;
   }
 }
