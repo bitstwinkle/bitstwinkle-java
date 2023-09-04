@@ -44,5 +44,5 @@ public interface PucService {
 
   Pack<String> airdrop(AirdropRequest req);
 
-  Pack<Account> AccountGetAccount(AccountGetRequest req);
+  Pack<Account> accountGetAccount(AccountGetRequest req);
 }

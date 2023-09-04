@@ -132,7 +132,7 @@ public class HttpPucService implements PucService {
   }
 
   @Override
-  public Pack<Account> AccountGetAccount(AccountGetRequest req) {
+  public Pack<Account> accountGetAccount(AccountGetRequest req) {
     if(req.getScope()==null){
       req.setScope(Network.Options().getScope());
     }

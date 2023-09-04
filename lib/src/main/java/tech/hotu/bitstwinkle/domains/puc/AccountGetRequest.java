@@ -26,7 +26,7 @@ public class AccountGetRequest {
   @JsonProperty("account_unique")
   private Unique accountUnique;
 
-  class With {
+  public class With {
     @JsonProperty("private_key")
     private boolean privateKey;
     @JsonProperty("public_key")
@@ -76,6 +76,9 @@ public class AccountGetRequest {
   }
 
   public With getWith() {
+    if(this.with == null) {
+      this.with = new With();
+    }
     return with;
   }
 
